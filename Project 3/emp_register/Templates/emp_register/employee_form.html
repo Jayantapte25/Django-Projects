@@ -1,0 +1,13 @@
+{% extends "emp_register/base.html" %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+{% block content %}
+  <h1>Create Employee</h1>
+  <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <div class="mb-3"></div> 
+    <input type="submit" class="btn btn-primary mt-3" value="Submit"> 
+  </form>
+{% endblock %}

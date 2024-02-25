@@ -1,0 +1,43 @@
+{% extends "emp_register/base.html"%}
+
+{%block content%}
+<table class = "table table-borderless">
+    <thread class = "border-bottom font-weight-bold"> <!-- this is the header of the table-->
+        <tr>
+            <!--This gives us the column names-->
+            <td>Full Name</td>
+            <td>Mobile</td>
+            <td>Position</td>
+            <td>                    
+                <a href="{% url 'emp_register:employee_insert' %}" class="btn text-secondary px-0"> <!-- this is the link which we are using to add the data-->
+                    <i class="fas fa-plus fa-lg"></i> <!-- this is the plus icon which we are using to add the data-->
+                </a>
+            </td>
+        </tr>
+    </thread>
+    <tbody> <!-- this is the body of the table-->
+        {% for emp in employee_list %} <!--we use this for loop to display all the data in the table one by one-->
+        <tr> <!-- this is the table row which we are using to display the data-->
+            <td>{{emp.fullname}}</td> <!-- this is the data which we are displaying in the table-->
+            <td>{{emp.mobile}}</td>
+            <td>{{emp.position}}</td>
+            <td>
+                <a href="{% if emp.id %}{% url 'emp_register:employee_update' emp.id %}{% endif %}" class="btn text-secondary px-0">
+                    <!-- In this it is not necessary to mention object, we can directly add the url in the href section which we want to call -->
+                    <i class="fas fa-edit fa-lg"></i> <!-- this is the edit icon which we are using to edit the data-->
+                </a>   
+                <form action="{% if emp.id %}{% url 'emp_register:employee_delete' emp.id %}{% endif %}" method="post" class="d-inline">
+                    {% csrf_token %} <!-- this is used to create a token for the form & checking if the token is valid or not-->
+                    <button type="submit" class="btn text-secondary px-0"> <!-- this is the button which we are using to delete the data-->
+                        <i class="fas fa-trash fa-lg"></i> <!-- this is the trash icon which we are using to delete the data-->
+                    </button>
+                </form>                
+            </td>
+        </tr>
+        {% endfor %} <!-- this is the end of the for loop-->
+    </tbody>
+</table>
+
+{%endblock content%}
+
+<!-- this code we are just creating a table and we are displaying the data in the table-->
